@@ -1,61 +1,52 @@
-from sqlalchemy import (create_engine, MetaData, Table, Column, Integer, String, Float, insert)
 import requests
+import argparse
+from sqlalchemy import (create_engine, MetaData, Table, Column, Integer, String, Float, insert, delete)
+from common import dal, ht
 
-""""To DO:
-- Update Method
-- Use commandline arguments 
-"""
-
-#Metadata
-metadata = MetaData()
-
-#Creating table 
-market_summaries = Table('marketsummaries', metadata, 
-    Column('MarketName', String(), primary_key=True),
-    Column('High', Float()),
-    Column('Low', Float()),
-    Column('Volume', Float()),
-    Column('Last', Float()),
-    Column('BaseVolume', Float()),
-    Column('TimeStamp', String()), 
-    Column('Bid', Float()), 
-    Column('Ask', Float()),
-    Column('OpenBuyOrders', Integer()),
-    Column('OpenSellOrders', Integer()), 
-    Column('PrevDay', Float()),
-    Column('Created', String()),
-    Column('DisplayMarketName', String())
-)
-
-#Creating engine and connecting it to database
-engine = create_engine('sqlite:///marketsummaries.db', echo=True)
-metadata.create_all(engine)
-connection = engine.connect()
-
-
-#Get data from the API
 def get_market_data():
+    response = requests.get("https://bittrex.com/api/v1.1/public/getmarketsummaries")
 
-	response = requests.get("https://bittrex.com/api/v1.1/public/getmarketsummaries")
+    if response.status_code == 200:
+        py_response = response.json()
+        return py_response
+    else:
+        print("Something went wrong with the Bittrex API call.")
+        return None 
 
-	print(response.status_code)
 
-	if response.status_code == 200:
-		py_response = response.json()
-		return py_response
-	else:
-		print("Something went wrong.")
-		return None 
+def populate_db(data):
+    #Clear database contents
+    clear_db = delete(dal.market_summaries)
+    result = dal.connection.execute(clear_db)
 
-market_data = get_market_data()
+    #Insert data into database
+    if data is not None:
+        ins = dal.market_summaries.insert()
+        result = dal.connection.execute(ins, data["result"])
+        print("Success! The Bitcoin market data has been stored in the database.")
+    else:
+        print("Error. No data to store.")
 
-#Add DisplayMarketName to marketdata
-if market_data is not None:
-    for row in market_data["result"]:
-        row["DisplayMarketName"] = None
 
-#Inserting data into database
-if market_data is not None:
-    ins = market_summaries.insert()
-    result = connection.execute(ins, market_data["result"])
+def main():
+    #Command line arguments configuration
+    parser = argparse.ArgumentParser(description = "This script imports cryptocurrencies prices from the Bittrex API into a SQLite database.", formatter_class=argparse.RawTextHelpFormatter)
+    parser.add_argument("database_path", help=ht.path_help, type=str)
+    parser.add_argument("-d", "--debug", help=ht.debug_help, action = "store_true")
+    args = parser.parse_args()
+    path = "sqlite:///{}".format(args.database_path)
 
+    #Initialize database 
+    if args.debug:
+        echo = True
+        dal.db_init(path, echo)
+    else:
+        echo = False
+        dal.db_init(path, echo)
+
+    market_data = get_market_data()
+    populate_db(market_data)
+
+
+if __name__ == "__main__":
+    main()
