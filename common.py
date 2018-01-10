@@ -37,7 +37,7 @@ class HelpText:
 	foo.db
 	Absolute path:
 	#Unix/Mac
-	/absolute/path/to/foo.db
+	"/absolute/path/to/foo.db"
 	#Windows
 	"C:\\path\\to\\foo.db"'''
 
