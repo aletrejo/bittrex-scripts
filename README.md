@@ -9,7 +9,7 @@ To run the scripts, you'll first need to have the requests and sqlalachemy libra
 $ pip install requests sqlalchemy 
 
 ```
-Before running the scripts, you'll have to make sure you have a SQLite database. If you have another type of database, you'll need to convert it into a SQLite database.  
+Before running the scripts, you'll have to make sure you have a SQLite database. If you have another type of database, you'll first need to convert it into a SQLite database.  
 
 ## Usage 
 ### Commands 
@@ -18,7 +18,7 @@ Before running the scripts, you'll have to make sure you have a SQLite database.
 -h / --help  (Optional) Shows a help message.
 database_path The path to the SQLite database that will be used to store and retrieve the data.
 ```
-#### The database_path argument using a relative path vs an absolute path
+#### Using the database_path argument with a relative path vs an absolute path
 For a relative path to your database, pass the argument as follows:
 ```bash
 # Relative path
@@ -60,4 +60,4 @@ BTC-AGRS -0.01%
 * [SQLAlchemy](https://www.sqlalchemy.org) - The Python library used for the database interactions. 
 
 ## Acknowledgments 
-Special shout-out to Benoit Hirbec and Kavitah Prasad for their patience and willigness to answer my questions related to this project. Thank you!
+Special shout-out to Benoit Hirbec and Kavitha Prasad for their patience and willigness to answer all my questions related to this project. Thank you so much for your help!
