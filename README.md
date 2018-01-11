@@ -60,4 +60,4 @@ BTC-AGRS -0.01%
 * [SQLAlchemy](https://www.sqlalchemy.org) - The Python library used for the database interactions. 
 
 ## Acknowledgments 
-Special shout-out to Benoit Hirbec and Kavitha Prasad for their patience and willigness to answer all my questions related to this project. Thank you so much for your help!
+Special shout-out to Benoit Hirbec and Kavitha Prasad for their patience and willingness to answer all my questions related to this project. Thank you so much for your help!
