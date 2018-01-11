@@ -33,9 +33,9 @@ class DataAccessLayer:
 class HelpText:
 	#Path help text adapted from SQLite documentation here: http://docs.sqlalchemy.org/en/latest/core/engines.html#sqlite
 	path_help = ''' This is the file path to the database.
-	Relative path:
+	If it's a relative path use:
 	foo.db
-	Absolute path:
+	If it's an absolute path (quotation marks are required!) use:
 	#Unix/Mac
 	"/absolute/path/to/foo.db"
 	#Windows
