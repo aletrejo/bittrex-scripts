@@ -59,5 +59,6 @@ BTC-AGRS -0.01%
 * [SQLite](https://www.sqlite.org) - The SQL engine used for the database.
 * [SQLAlchemy](https://www.sqlalchemy.org) - The Python library used for the database interactions. 
 
-## Acknowledgments 
-Special shout-out to Benoit Hirbec and Kavitha Prasad for their patience and willingness to answer all my questions related to this project. Thank you so much for your help!
+## Acknowledgments
+Special shout-out to [@bhirbec](https://github.com/bhirbec) and [Kavitha Prasad](https://twitter.com/tweethck)
+for their patience and willingness to answer all my questions related to this project. Thank you so much for your help!
